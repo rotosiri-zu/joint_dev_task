@@ -89,9 +89,9 @@ def q10
   # 以下に回答を記載
   foods.each do |food|
     if food.include?("うに")
-      puts "好物です"
+      puts "#{food}: 好物です"
     else
-      puts "まぁまぁ好きです"
+      puts "#{food}: まぁまぁ好きです"
     end  
   end  
 end
@@ -132,17 +132,8 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  if data1.has_key?(:age)
-    puts ("OK")
-  else
-    puts ("NG")
-  end
-  
-  if data2.has_key?(:age)
-    puts ("OK")
-  else
-    puts ("NG")
-  end      
+  puts data1.has_key?(:age) ? "OK" : "NG"
+  puts data2.has_key?(:age) ? "OK" : "NG"
 end
 
 def q16
@@ -159,7 +150,18 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  
+  def initialize(**name)
+    @name = name
+  end
+
+  def info
+    text = <<~TEXT
+      名前:#{@name[:name]}
+      年齢:#{@name[:age]}
+      性別:#{@name[:gender]}
+    TEXT
+    puts text
+  end  
 end
 
 def q17
@@ -174,7 +176,15 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+  end
 
+  def introduce
+    return "こんにちは,#{@name}と申します。宜しくお願いいたします。" if @age > 20
+    "はいさいまいど〜,#{@name}です!!!"
+  end  
 end
 
 def q18
@@ -188,7 +198,7 @@ end
 
 class Item
   # 以下を修正して下さい
-
+  attr_reader :name
   def initialize(name)
     @name = name
   end
@@ -202,12 +212,28 @@ end
 
 class UserQ20
   # 以下に回答を記載
-
+  attr_reader :name, :entry_fee
+  def initialize(name:, entry_fee:)
+    @name = name
+    @entry_fee = entry_fee
+  end  
 end
 
 class Zoo
   # 以下に回答を記載
+  def info_entry_fee(user)
+    fee = case user.age
+    when 0..5
+      @entry_fee[:infant]
+    when 6..12
+      @entry_fee[:children]
+    when 13..64
+      @entry_fee[:adult] 
+    else
+      @entry_fee[:senior]
+    end
 
+  end  
 end
 
 
